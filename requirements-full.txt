@@ -1,0 +1,11 @@
+-r requirements.txt
+
+# GPU stages: baseline fine-tuning and frozen feature extraction.
+# Install the torch build matching your CUDA version first:
+#   https://pytorch.org/get-started/locally/
+torch>=2.0
+torchvision>=0.15
+transformers>=4.40
+open_clip_torch>=2.24
+huggingface_hub>=0.23
+Pillow>=10.0

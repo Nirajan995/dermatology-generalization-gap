@@ -1,0 +1,37 @@
+# Artifacts produced by the pipeline
+artifacts/
+data/
+*.npy
+*.pt
+*.pth
+*.ckpt
+
+# Regenerated results (original_results.json and null_tone_gap.json are tracked)
+results/decomposition.json
+results/purity.json
+results/adaptation.json
+results/summary.md
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+
+# Notebooks
+.ipynb_checkpoints/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Secrets
+.env
+*.key

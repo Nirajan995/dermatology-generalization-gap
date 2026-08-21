@@ -1,0 +1,129 @@
+{
+  "_about": "Numbers exactly as produced by the original Kaggle notebook runs that the paper reports. Use these as the reference when checking a reproduction. Regenerating with `python -m dermgap.evaluate` should match to the reported precision.",
+  "_provenance": {
+    "compute": "Kaggle free tier: one NVIDIA T4 session for baseline fine-tuning, one for feature extraction across all four models; all downstream analysis CPU-only",
+    "seed": 42,
+    "n_bootstrap": 1000
+  },
+
+  "baseline_training": {
+    "architecture": "ResNet-50, ImageNet-1k V2 init, 8-way head",
+    "source_pool_images": 35346,
+    "split": {"train": 24687, "val": 5281, "test": 5378},
+    "grouping": "lesion_id (HAM10000, ISIC 2019); namespaced by source",
+    "epochs": 15,
+    "best_val_balanced_accuracy": 0.673,
+    "best_epoch": 9,
+    "classes": ["AK", "BCC", "BKL", "DF", "MEL", "NV", "SCC", "VASC"],
+    "class_counts": {"NV": 19580, "MEL": 5635, "BCC": 3837, "BKL": 3723,
+                     "AK": 1194, "SCC": 628, "VASC": 395, "DF": 354}
+  },
+
+  "dataset_sizes": {
+    "ham10000": {"images": 10015, "groups": 7470, "labels": 7},
+    "isic2019": {"images": 25331, "groups": 13931, "labels": 8},
+    "ddi": {"images": 656, "groups": 656, "labels": 78,
+            "note": "groups == images; DDI ships no patient identifier"},
+    "scin": {"images": 6517, "cases": 3061, "labels": 211,
+             "note": "6518 rows built, 1 image file missing; 5033 -> 3061 cases after dropping empty weighted labels (39.2% dropped)"}
+  },
+
+  "table2_decomposition": {
+    "_metric": "balanced accuracy, full linear probe on frozen features",
+    "in_domain_hamisic_test": {
+      "resnet_baseline": 0.617, "dermlip": 0.518, "monet": 0.519, "dinov3": 0.472,
+      "_detail": "8 classes, 5378 images"
+    },
+    "scin_category_probe": {
+      "_reported_in_paper": {"resnet_baseline": 0.207, "dermlip": 0.359,
+                             "monet": 0.342, "dinov3": 0.311},
+      "_bootstrap_mean_variant": {"resnet_baseline": 0.172, "dermlip": 0.352,
+                                  "monet": 0.335, "dinov3": 0.270},
+      "_note": "The paper's Table 2 and Table 3 use the point estimates. The bootstrap-mean variant differs because resampling sometimes drops a rare category, which changes the per-class average. Report the point estimate; use percentiles only for the interval."
+    },
+    "scin_fine_probe": {
+      "resnet_baseline": 0.060, "dermlip": 0.199, "monet": 0.138, "dinov3": 0.131,
+      "_ci": {"resnet_baseline": [0.050, 0.077], "dermlip": [0.171, 0.230],
+              "monet": [0.111, 0.163], "dinov3": [0.106, 0.152]},
+      "_detail": "70 classes, 6033 images after min_class_count=10 filter"
+    },
+    "ddi_tone_gap": {
+      "_metric": "max-minus-min of per-group PLAIN accuracy on the binary malignant task (not balanced accuracy)",
+      "_test_split_sizes": {"FST I-II": 55, "FST III-IV": 65, "FST V-VI": 77},
+      "resnet_baseline": {"gap": 0.143, "ci": [0.031, 0.280],
+                          "per_group": {"FST I-II": 0.692, "FST III-IV": 0.816, "FST V-VI": 0.767},
+                          "overall_balanced_accuracy": 0.670},
+      "dermlip": {"gap": 0.136, "ci": [0.029, 0.260],
+                  "per_group": {"FST I-II": 0.818, "FST III-IV": 0.707, "FST V-VI": 0.806},
+                  "overall_balanced_accuracy": 0.729},
+      "monet": {"gap": 0.096, "ci": [0.018, 0.203],
+                "per_group": {"FST I-II": 0.778, "FST III-IV": 0.771, "FST V-VI": 0.741},
+                "overall_balanced_accuracy": 0.684},
+      "dinov3": {"gap": 0.175, "ci": [0.050, 0.306],
+                 "per_group": {"FST I-II": 0.821, "FST III-IV": 0.707, "FST V-VI": 0.661},
+                 "overall_balanced_accuracy": 0.660},
+      "_caveat": "max-min of noisy per-group estimates is biased upward and its interval never contains zero by construction. See results/null_tone_gap.json: at these group sizes the expected gap with NO tone effect is about 0.09 (95% range 0.02-0.20), which brackets all four observed gaps."
+    }
+  },
+
+  "figure2_knn_purity": {
+    "_metric": "k=10 cosine neighbour purity minus the random-neighbour floor sum_i p_i^2",
+    "in_domain_8_classes": {
+      "_chance": 0.365, "_n_images": 5378,
+      "resnet_baseline": {"purity": 0.783, "lift": 0.419},
+      "dermlip": {"purity": 0.709, "lift": 0.344},
+      "monet": {"purity": 0.657, "lift": 0.293},
+      "dinov3": {"purity": 0.657, "lift": 0.292}
+    },
+    "scin_fine_47_classes": {
+      "_chance": 0.069, "_n_images": 5713,
+      "resnet_baseline": {"purity": 0.131, "lift": 0.062},
+      "dermlip": {"purity": 0.297, "lift": 0.228},
+      "monet": {"purity": 0.211, "lift": 0.142},
+      "dinov3": {"purity": 0.228, "lift": 0.159}
+    },
+    "ddi_11_classes": {
+      "_chance": 0.137, "_n_images": 437,
+      "resnet_baseline": {"purity": 0.207, "lift": 0.070},
+      "dermlip": {"purity": 0.295, "lift": 0.158},
+      "monet": {"purity": 0.255, "lift": 0.118},
+      "dinov3": {"purity": 0.253, "lift": 0.116}
+    },
+    "scin_category": {
+      "_chance": 0.481, "_n_images": 6478,
+      "_note": "Produced by an older category map that omitted the traumatic_other and pigmentary groups, yielding 5 categories. Rerunning with the canonical map in dermgap.taxonomy gives 7 categories and slightly different values. The ordering across models is unchanged.",
+      "resnet_baseline": {"purity": 0.524, "lift": 0.043},
+      "dermlip": {"purity": 0.629, "lift": 0.148},
+      "monet": {"purity": 0.576, "lift": 0.095},
+      "dinov3": {"purity": 0.579, "lift": 0.098}
+    },
+    "_granularity_warning": "Figure 2 pairs in-domain purity at 8 classes with SCIN purity at 47 classes. Lift is chance-corrected so the comparison is defensible, but the caption must state the differing class counts. scin_category is the matched-granularity check and preserves the ordering (cancer baseline lowest, DermLIP highest)."
+  },
+
+  "table3_adaptation": {
+    "_metric": "balanced accuracy on SCIN clinical categories",
+    "resnet_baseline": {"raw": 0.214, "standardized": 0.207, "fewshot_k10": 0.194, "standardization_gain": -0.007},
+    "dermlip": {"raw": 0.421, "standardized": 0.359, "fewshot_k10": 0.411, "standardization_gain": -0.063},
+    "monet": {"raw": 0.332, "standardized": 0.342, "fewshot_k10": 0.389, "standardization_gain": 0.010},
+    "dinov3": {"raw": 0.352, "standardized": 0.311, "fewshot_k10": 0.324, "standardization_gain": -0.041},
+    "_note": "Standardization HURT three of four models, most sharply DermLIP (-0.063). The paper's claim that few-shot matches or exceeds the full probe holds against the standardized probe; against raw features DermLIP's full probe (0.421) still beats its few-shot probe (0.411). State which variant the comparison uses."
+  },
+
+  "cancer_baseline_per_category_recall_on_scin": {
+    "_note": "Striking and currently unreported: the cancer baseline gets zero recall on SCIN's neoplastic category, the one category it was actually trained for. Strong evidence that the failure is representational rather than a missing output head.",
+    "inflammatory": {"n": 1275, "recall": 0.642},
+    "infectious": {"n": 383, "recall": 0.316},
+    "vascular_purpuric": {"n": 113, "recall": 0.177},
+    "other": {"n": 79, "recall": 0.051},
+    "traumatic_other": {"n": 56, "recall": 0.018},
+    "neoplastic": {"n": 47, "recall": 0.000},
+    "pigmentary": {"n": 7, "recall": 0.000}
+  },
+
+  "purity_recovery_link": {
+    "pearson_r_standardized": 0.903,
+    "purity_lift_scin_fine": {"resnet_baseline": 0.062, "dermlip": 0.228,
+                              "monet": 0.142, "dinov3": 0.159},
+    "_caveat": "n=4 models; descriptive, not a significance test. Correlates fine-grained purity (47 classes) against a category-level probe (7 classes); the granularity mismatch should be stated."
+  }
+}

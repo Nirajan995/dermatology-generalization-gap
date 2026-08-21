@@ -1,0 +1,125 @@
+{
+  "hamisic_test_mapped_label": {
+    "resnet_baseline": {
+      "purity": 0.783,
+      "lift": 0.419,
+      "chance": 0.365,
+      "n_classes": 8,
+      "n_images": 5378
+    },
+    "dermlip": {
+      "purity": 0.709,
+      "lift": 0.344,
+      "chance": 0.365,
+      "n_classes": 8,
+      "n_images": 5378
+    },
+    "monet": {
+      "purity": 0.657,
+      "lift": 0.293,
+      "chance": 0.365,
+      "n_classes": 8,
+      "n_images": 5378
+    },
+    "dinov3": {
+      "purity": 0.657,
+      "lift": 0.292,
+      "chance": 0.365,
+      "n_classes": 8,
+      "n_images": 5378
+    }
+  },
+  "scin_label": {
+    "resnet_baseline": {
+      "purity": 0.131,
+      "lift": 0.062,
+      "chance": 0.069,
+      "n_classes": 47,
+      "n_images": 5713
+    },
+    "dermlip": {
+      "purity": 0.297,
+      "lift": 0.228,
+      "chance": 0.069,
+      "n_classes": 47,
+      "n_images": 5713
+    },
+    "monet": {
+      "purity": 0.211,
+      "lift": 0.142,
+      "chance": 0.069,
+      "n_classes": 47,
+      "n_images": 5713
+    },
+    "dinov3": {
+      "purity": 0.228,
+      "lift": 0.159,
+      "chance": 0.069,
+      "n_classes": 47,
+      "n_images": 5713
+    }
+  },
+  "scin_category": {
+    "resnet_baseline": {
+      "purity": 0.524,
+      "lift": 0.043,
+      "chance": 0.481,
+      "n_classes": 5,
+      "n_images": 6478
+    },
+    "dermlip": {
+      "purity": 0.629,
+      "lift": 0.148,
+      "chance": 0.481,
+      "n_classes": 5,
+      "n_images": 6478
+    },
+    "monet": {
+      "purity": 0.576,
+      "lift": 0.095,
+      "chance": 0.481,
+      "n_classes": 5,
+      "n_images": 6478
+    },
+    "dinov3": {
+      "purity": 0.579,
+      "lift": 0.098,
+      "chance": 0.481,
+      "n_classes": 5,
+      "n_images": 6478
+    }
+  },
+  "ddi_label": {
+    "resnet_baseline": {
+      "purity": 0.207,
+      "lift": 0.07,
+      "chance": 0.137,
+      "n_classes": 11,
+      "n_images": 437
+    },
+    "dermlip": {
+      "purity": 0.295,
+      "lift": 0.158,
+      "chance": 0.137,
+      "n_classes": 11,
+      "n_images": 437
+    },
+    "monet": {
+      "purity": 0.255,
+      "lift": 0.118,
+      "chance": 0.137,
+      "n_classes": 11,
+      "n_images": 437
+    },
+    "dinov3": {
+      "purity": 0.253,
+      "lift": 0.116,
+      "chance": 0.137,
+      "n_classes": 11,
+      "n_images": 437
+    }
+  },
+  "_notes": {
+    "source": "transcribed from results/original_results.json (the original notebook runs); regenerate with `python -m dermgap.evaluate` to overwrite with a fresh computation"
+  }
+}

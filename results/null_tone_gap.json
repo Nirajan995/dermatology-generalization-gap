@@ -1,0 +1,96 @@
+{
+  "sweep": [
+    {
+      "p": 0.67,
+      "group_sizes": [
+        55,
+        65,
+        77
+      ],
+      "n_sim": 20000,
+      "mean_gap": 0.09911440559440561,
+      "median_gap": 0.09350649350649354,
+      "pct_2_5": 0.017182817182817223,
+      "pct_97_5": 0.21558441558441566,
+      "p_gap_exceeds_0.10": 0.44815
+    },
+    {
+      "p": 0.7,
+      "group_sizes": [
+        55,
+        65,
+        77
+      ],
+      "n_sim": 20000,
+      "mean_gap": 0.09663089910089911,
+      "median_gap": 0.09090909090909094,
+      "pct_2_5": 0.017182817182817223,
+      "pct_97_5": 0.21038961038961046,
+      "p_gap_exceeds_0.10": 0.4277
+    },
+    {
+      "p": 0.75,
+      "group_sizes": [
+        55,
+        65,
+        77
+      ],
+      "n_sim": 20000,
+      "mean_gap": 0.09126976023976024,
+      "median_gap": 0.08571428571428574,
+      "pct_2_5": 0.01558441558441559,
+      "pct_97_5": 0.19920079920079925,
+      "p_gap_exceeds_0.10": 0.38585
+    },
+    {
+      "p": 0.8,
+      "group_sizes": [
+        55,
+        65,
+        77
+      ],
+      "n_sim": 20000,
+      "mean_gap": 0.08429585414585412,
+      "median_gap": 0.07972027972027973,
+      "pct_2_5": 0.015384615384615441,
+      "pct_97_5": 0.18441558441558437,
+      "p_gap_exceeds_0.10": 0.3306
+    }
+  ],
+  "reference_p": 0.75,
+  "reference": {
+    "p": 0.75,
+    "group_sizes": [
+      55,
+      65,
+      77
+    ],
+    "n_sim": 20000,
+    "mean_gap": 0.09126976023976024,
+    "median_gap": 0.08571428571428574,
+    "pct_2_5": 0.01558441558441559,
+    "pct_97_5": 0.19920079920079925
+  },
+  "comparisons": {
+    "resnet_baseline": {
+      "observed_gap": 0.143,
+      "null_percentile": 85.9,
+      "verdict": "within null range"
+    },
+    "dermlip": {
+      "observed_gap": 0.136,
+      "null_percentile": 82.8,
+      "verdict": "within null range"
+    },
+    "monet": {
+      "observed_gap": 0.096,
+      "null_percentile": 58.0,
+      "verdict": "within null range"
+    },
+    "dinov3": {
+      "observed_gap": 0.175,
+      "null_percentile": 94.5,
+      "verdict": "within null range"
+    }
+  }
+}

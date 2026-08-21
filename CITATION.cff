@@ -1,0 +1,29 @@
+cff-version: 1.2.0
+title: "Disease Burden over Skin Tone: Decomposing the Dermatology-AI Generalization Gap"
+message: "If you use this software or protocol, please cite the paper."
+type: software
+authors:
+  - family-names: Kunwor
+    given-names: Nirajan
+    affiliation: Tribhuvan University
+  - family-names: Poudel
+    given-names: Sanjaya
+    affiliation: North Carolina A&T State University
+  - family-names: Trinh
+    given-names: Quoc-Huy
+    affiliation: Aalto University
+  - family-names: Arfat
+    given-names: Jahidul
+    affiliation: Auburn University
+  - family-names: Gaire
+    given-names: Sunil Kumar
+    affiliation: North Carolina A&T State University
+repository-code: "https://github.com/Nirajan995/dermatology-generalization-gap"
+license: MIT
+version: 1.0.0
+keywords:
+  - dermatology AI
+  - distribution shift
+  - algorithmic fairness
+  - foundation models
+  - resource-constrained settings

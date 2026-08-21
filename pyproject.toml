@@ -1,0 +1,60 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dermgap"
+version = "1.0.0"
+description = "Decomposing the dermatology-AI generalization gap into tone and disease-distribution effects"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {file = "LICENSE"}
+authors = [
+    {name = "Nirajan Kunwor"},
+    {name = "Sanjaya Poudel"},
+    {name = "Quoc-Huy Trinh"},
+    {name = "Jahidul Arfat"},
+    {name = "Sunil Kumar Gaire"},
+]
+keywords = ["dermatology", "distribution-shift", "algorithmic-fairness",
+            "foundation-models", "medical-imaging"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+# CPU-only analysis: probes, purity, adaptation, figures, null calibration.
+dependencies = [
+    "numpy>=1.24",
+    "pandas>=2.0",
+    "scikit-learn>=1.3",
+    "matplotlib>=3.7",
+]
+
+[project.optional-dependencies]
+# Everything needed to train the baseline and extract features (needs a GPU).
+full = [
+    "torch>=2.0",
+    "torchvision>=0.15",
+    "transformers>=4.40",
+    "open_clip_torch>=2.24",
+    "huggingface_hub>=0.23",
+    "Pillow>=10.0",
+]
+dev = ["pytest>=7.4", "ruff>=0.4"]
+
+[project.urls]
+Repository = "https://github.com/Nirajan995/dermatology-generalization-gap"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
